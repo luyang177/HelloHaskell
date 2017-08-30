@@ -1,13 +1,23 @@
 module Main where
 
-import qualified Data.ByteString as B
 import State
 import StateSample
+import Data.List.Utils
+import Data.List
+
+printMaybe :: Show a => Maybe a -> IO ()
+printMaybe (Just a) = print a
+printMaybe _ = return ()
+
+process :: String -> String
+process = concat . processLines . lines
+
+processLines :: [String] -> [String]
+processLines aLines = filter (\x -> isInfixOf "FontSize" x) aLines
+--printMaybe $ subIndex "foo" "asdfoobar"
 
 main :: IO ()
 main = do
-    let (_, s) = runState stateSample1 ""
-    putStrLn s
-    --let ss = B.pack "Hello, world"
-    --putStrLn "ddd"
-    
+    text <- readFile "E:\\Civ6_FontStyles_zh_Hans_CN.xml"
+    print $ process text
+    --return ()

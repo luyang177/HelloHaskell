@@ -1,5 +1,5 @@
 module StateSample (
-    stateSample1
+    runStateSample1
 ) where
 
 import Data.Char (isSpace)    
@@ -16,3 +16,6 @@ stateSample1 = do
     put "  ddee    "
     modify trimStart
     modify trimEnd
+
+runStateSample1 :: ((), String)
+runStateSample1 = runState stateSample1 ""    
