@@ -1,40 +1,46 @@
 module Main where
 
-import State
-import StateSample
-
 import Data.List
 import Data.List.Utils
 
-printMaybe :: Show a => Maybe a -> IO ()
-printMaybe (Just a) = print a
-printMaybe _ = return ()
+mkString :: String -> [String] -> String
+mkString sperator = concatMap (++ sperator)
+
+subIndex2 :: Eq a => [a] -> Int -> [a] -> Maybe Int
+subIndex2 searchStr 0 srcList = subIndex searchStr srcList
+subIndex2 searchStr startIndex srcList = 
+    let restStr = drop startIndex srcList
+        result = subIndex searchStr restStr
+    in fmap (+ startIndex) result
+
+-- StartIndex -> Length -> src -> dest    
+substring :: Int -> Int -> [a] -> [a]
+substring startIndex length = take length . drop startIndex
 
 process :: String -> String
-process = concat . processLines . lines
+process = mkString "\n" . processLines . lines
 
 processLines :: [String] -> [String]
 processLines = fmap (\x -> 
     case subIndex "FontSize" x of 
-     Just fontSizePos -> 
-        let currentFontSize = getFontSize x fontSizePos
-            destFontSize = currentFontSize + 3
-        in show destFontSize
+     Just fontSizePos -> getFontSize x fontSizePos 3
      _ -> x)
 
-getFontSize :: String -> Int -> Int
-getFontSize str fontSizePos = 
-    let numberStart = fontSizePos + length "FontSize=\""
-        restStr = drop numberStart str
-        nextSeperator = elemIndex '\"' restStr
+  
+getFontSize :: String -> Int -> Int -> String
+getFontSize str fontSizePos offset = 
+    let numberStart = fontSizePos + length "FontSize=\""        
+        nextSeperator = subIndex2 "\"" numberStart str
     in case nextSeperator of 
-        Just nextSeperatorInt -> read $ take nextSeperatorInt restStr 
-        _ -> undefined
+        Just nextSeperatorValue -> 
+            let value = read $ substring numberStart (nextSeperatorValue - numberStart) str
+            in take numberStart str ++ 
+               show (value + offset) ++
+               drop nextSeperatorValue str
+        _ -> str
 
---printMaybe $ subIndex "foo" "asdfoobar"
 
 main :: IO ()
 main = do
     text <- readFile "E:\\Civ6_FontStyles_zh_Hans_CN.xml"
-    print $ process text
-    --return ()
+    writeFile "E:\\Civ6.xml" (process text)
