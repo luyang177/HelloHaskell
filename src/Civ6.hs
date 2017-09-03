@@ -5,6 +5,8 @@ module Civ6 (
 import Data.List.Utils    
 import LuyangUtil
 
+-- changeCiv6FontSize "E:\\Civ6_FontStyles_zh_Hans_CN.xml" "E:\\Civ6.xml" 4
+
 changeCiv6FontSize :: FilePath -> FilePath -> Int -> IO ()
 changeCiv6FontSize srcPath destPath fontSizeOffset = do
     text <- readFile srcPath
