@@ -5,6 +5,5 @@ module Main where
 import LensSample
 
 main :: IO ()
-main = print runSampleTraverseOver
+main = print runSampleTraverseToListOf2
 
--- [1..3] >> "abc"
