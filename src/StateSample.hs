@@ -18,4 +18,4 @@ stateSample1 = do
     modify trimEnd
 
 runStateSample1 :: ((), String)
-runStateSample1 = runState stateSample1 ""    
+runStateSample1 = runState stateSample1 ""

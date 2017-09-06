@@ -1,9 +1,5 @@
-module Main where
-
---import Debug.Trace
--- import Control.Lens
-import LensSample
+import WriterTSample
+   
 
 main :: IO ()
-main = print runSampleTraverseToListOf2
-
+main = print runWriterTSample1
