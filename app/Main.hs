@@ -1,5 +1,5 @@
 import WriterTSample
-   
+import Compose
 
 main :: IO ()
-main = print runWriterTSample1
+main = putStrLn $ compose2 "111iopu"
