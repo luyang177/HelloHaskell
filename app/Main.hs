@@ -1,5 +1,6 @@
 import WriterTSample
-import Compose
+import NinetyNineProblems
+
 
 main :: IO ()
-main = putStrLn $ compose2 "111iopu"
+main = print $ myButLast [1,2,3]

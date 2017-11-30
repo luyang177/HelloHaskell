@@ -22,6 +22,7 @@ library
                      , LensSample
                      , WriterTSample
                      , Compose
+                     , NinetyNineProblems
   build-depends:       base >= 4.7 && < 5
                      , MissingH
                      , microlens
