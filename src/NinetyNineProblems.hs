@@ -16,3 +16,12 @@ myLast (_ : xs) = myLast xs
 myButLast :: [a] -> a
 myButLast [x, _] = x
 myButLast (_ : xs) = myButLast xs
+
+-- Problem 3
+-- Find the K'th element of a list. The first element in the list is number 1. 
+elementAt :: [a] -> Int -> a
+elementAt (x : _) 1 = x
+elementAt (_ : xs) n = elementAt xs (n - 1)
+
+elementAt2 :: [a] -> Int -> a
+elementAt2 list i    = list !! (i-1)

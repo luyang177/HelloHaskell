@@ -3,4 +3,4 @@ import NinetyNineProblems
 
 
 main :: IO ()
-main = print $ myButLast [1,2,3]
+main = print $ elementAt2 "haskell" 5
